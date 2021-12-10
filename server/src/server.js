@@ -40,10 +40,10 @@ function createServer() {
   /* "Redirect" all non-API GET requests to React's entry point (index.html)
    * which allows the React SPA's client side navigation library to handle full
    * page refreshes */
-  app.use(express.static(path.resolve("..", "client", "build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve("..", "client", "build", "index.html"))
-  );
+  // app.use(express.static(path.resolve("..", "client", "build")));
+  // app.get("*", (req, res) =>
+  //   res.sendFile(path.resolve("..", "client", "build", "index.html"))
+  // );
 
   const openPaths = [
     // Open "/api/users/authenticate" for POST requests
