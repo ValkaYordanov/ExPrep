@@ -17,7 +17,9 @@ class ApiService {
             username,
             password,
         });
-        this.setToken(response.token);
+        // this.setToken(response.token);
+        this.login(username, password);
+
         console.log(response);
     }
 

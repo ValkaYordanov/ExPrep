@@ -57,6 +57,7 @@ export default function App() {
       apiService.createUser(username, password);
       // Fetch data again after logging in
       // window.location.reload();
+      login(username, password);
     } catch (error) {
       console.error("Logout", error);
     }
