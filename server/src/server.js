@@ -15,7 +15,7 @@ function createServer() {
   const app = express();
   /* The cors() middleware allows Cross-Origin Resource Sharing when developing
      * locally: http://expressjs.com/en/resources/middleware/cors.html */
-  app.use(cors());
+
   /* The express.json() middleware automatically parses JSON data in the body of
    * requests: http://expressjs.com/en/api.html#express.json */
   app.use(express.json());
@@ -28,7 +28,7 @@ function createServer() {
   /* The morgan() middleware logs request info to the console while the server is
    * running: https://expressjs.com/en/resources/middleware/morgan.html */
   app.use(morgan("combined"));
-
+  app.use(cors());
 
   /* The express.static() middleware serves our static files from the pre-built
    * React app: http://expressjs.com/en/api.html#express.static */
@@ -41,9 +41,7 @@ function createServer() {
    * which allows the React SPA's client side navigation library to handle full
    * page refreshes */
   app.use(express.static(path.resolve("..", "client", "build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve("..", "client", "build", "index.html"))
-  );
+
 
   const openPaths = [
     // Open "/api/users/authenticate" for POST requests
@@ -77,6 +75,10 @@ function createServer() {
 
   app.use("/api/users", usersRouter);
   app.use("/api/allPosts", postRoutes);
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve("..", "client", "build", "index.html"))
+  );
   return app;
 }
 
