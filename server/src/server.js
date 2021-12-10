@@ -29,7 +29,13 @@ function createServer() {
    * running: https://expressjs.com/en/resources/middleware/morgan.html */
   app.use(morgan("combined"));
 
-
+  if (process.env.NODE_ENV === 'production') {
+    //set static folder
+    app.use(express.static('client/build'));
+  }
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 
   /* The express.static() middleware serves our static files from the pre-built
    * React app: http://expressjs.com/en/api.html#express.static */
