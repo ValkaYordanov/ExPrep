@@ -11,9 +11,9 @@ class ApiService {
         this.api_url = api_url;
     }
 
-    createUser(username, password) {
+    async createUser(username, password) {
         console.log(username, password)
-        const response = this.post("/users/registration", {
+        const response = await this.post("/users/registration", {
             username,
             password,
         });
