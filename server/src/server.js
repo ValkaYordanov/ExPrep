@@ -53,7 +53,7 @@ function createServer() {
 
     // Open all GET requests on the form "/api/questions/*" using a regular expression
     { url: /\/api\/questions\.*/gim, methods: ["GET"] },
-    { url: "/", methods: ["GET"] },
+    { url: /\.*/gim, methods: ["GET"] },
     { url: /\/api\/allPosts\.*/gim, methods: ["GET"] },
     { url: /\/api\/users\/registration\.*/gim, methods: ["POST"] },
   ];
