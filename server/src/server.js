@@ -23,7 +23,7 @@ function createServer() {
   /* The express.urlencoded() middleware automatically parses urlencoded payloads
    * into the req.body property:
    * http://expressjs.com/en/api.html#express.urlencoded */
-  //app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: false }));
 
   /* The morgan() middleware logs request info to the console while the server is
    * running: https://expressjs.com/en/resources/middleware/morgan.html */
