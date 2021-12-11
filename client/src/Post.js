@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "@reach/router";
 import { useState } from "react";
 import "./styles.css";
-
 // Nothing special happens in this component, except for the Link
 function Post(props) {
 
@@ -10,6 +9,7 @@ function Post(props) {
     const post = props.getPost(props.id); // "props.id" contains the id in "/recipe/:id"
 
     const { addLike } = props;
+    const { deletePost } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
     const [user, setUser] = useState("");
@@ -41,6 +41,7 @@ function Post(props) {
                         day: '2-digit',
                         year: 'numeric',
                     }).format(new Date(post.date))}
+                    <Link to="/"><button type="button" onClick={(event) => { deletePost(post._id); }}>Delete</button></Link>
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >

@@ -90,8 +90,14 @@ export default function App() {
 
     if (content !== "" && authorName !== "" && content.length <= 500) {
       setErrorMessage("")
+      if (apiService.loggedIn()) {
+        //headers["Authorization"] = `Bearer ${localStorage.getToken()}`;
+        var decoded = jwt_decode(localStorage.getItem("token"));
+      } else {
+        setErrorMessage("Yo have to login in orfer to post a post!")
+        throw "You have to log in!"
+      }
 
-      var decoded = jwt_decode(localStorage.getItem("token"));
 
       const newPost = {
         //id: (Math.random() * 999).toString(),
@@ -136,6 +142,19 @@ export default function App() {
 
     setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)]);
   }
+
+
+  async function deletePost(postId) {
+
+
+    const posts = await apiService.delete(`/allPosts/deletePost/${postId}`,
+
+
+    )
+    window.location.reload();
+    setPosts(posts);
+  }
+
 
   //   fetch(`${API_URL}/allPosts/addLike/${postId}`, {
   //     // PUT instead of POST because we overwrite the whole bin with a new version
@@ -195,7 +214,7 @@ export default function App() {
     <>
       <p>No Posts!</p>
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser}></Post>
+        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser} deletePost={deletePost}></Post>
         <Posts path="/" data={posts} addPost={addPost} getUser={getUser}></Posts>
 
 
@@ -205,7 +224,7 @@ export default function App() {
   if (posts.length > 0) {
     contents = (
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser}></Post>
+        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser} deletePost={deletePost} ></Post>
         <Posts path="/" data={posts} addPost={addPost} getUser={getUser} ></Posts>
 
 

@@ -25,6 +25,21 @@ postRoutes.post("/create", async (req, res) => {
   }
 });
 
+postRoutes.delete("/deletePost/:id", async (req, res) => {
+  try {
+    const post = await Post.findByIdAndRemove(req.params.id);
+    res.status(201);
+    const posts = await Post.find();
+    res.json(posts);
+  } catch (error) {
+    res.status(500);
+    res.json({
+      error: "Post could not be created",
+      details: error.toString(),
+    });
+  }
+});
+
 // postRoutes.route('/addLike/:id').put((req, res, next) => {
 //   try{
 //     const post = await Post.findByIdAndUpdate(req.body.id);

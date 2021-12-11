@@ -82,7 +82,7 @@ class ApiService {
                 throw parsedResponse;
             }
         } catch (error) {
-            throw error;
+            throw "here";
         }
     }
 

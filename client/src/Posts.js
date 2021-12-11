@@ -18,17 +18,19 @@ function Posts(props) {
     }
 
     return (
+
+
         <>
             <br />
             <AddPost addPost={addPost} />
             <h1 style={{ textAlign: 'center' }}>List of all posts</h1>
             <div style={{ width: '300px', border: 'solid', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
 
+                {data.map(post => <>
 
-                {data.map(post =>
-                    <><div>
+                    <div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {getUser(post.submitter)["username"]}</Link>
+                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | { }</Link>
                         </div>
                         <hr />
                         <div>
@@ -40,7 +42,7 @@ function Posts(props) {
                         </div>
                         <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     </div>
-                    </>
+                </>
 
 
 
