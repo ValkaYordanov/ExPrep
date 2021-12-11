@@ -8,11 +8,14 @@ function Post(props) {
 
 
     const post = props.getPost(props.id); // "props.id" contains the id in "/recipe/:id"
+
     const { addLike } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
     const [user, setUser] = useState("");
-
+    // const userr = props.getUser(post.submitter);
+    // console.log(post.sumbitter);
+    // console.log(post.submitter);
     const [errorMessage, setErrorMessage] = useState("");
 
     function clearInput() {
@@ -45,7 +48,7 @@ function Post(props) {
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner}
+                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{ }|
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >

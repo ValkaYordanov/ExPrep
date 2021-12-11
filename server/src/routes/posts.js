@@ -1,5 +1,6 @@
 import express from "express";
 import Post from "../models/post.js";
+import User from "../models/user.js";
 
 const postRoutes = express.Router();
 
@@ -7,6 +8,8 @@ postRoutes.get("/", async (req, res) => {
   const posts = await Post.find();
   res.json(posts);
 });
+
+
 
 postRoutes.post("/create", async (req, res) => {
   try {

@@ -22,17 +22,18 @@ export default function App() {
     // We now use `apiService.get()` instead of `fetch()`
     try {
       const data = await apiService.get("/allPosts");
+
       setPosts(data);
-      console.log(data);
+      getUsersData();
     } catch (error) {
       console.error(error);
     }
   }
   async function getUsersData() {
     try {
-      const data = await apiService.get("/allUsers");
-      setUsers(data);
-
+      const dataa = await apiService.getUsers();
+      setUsers(dataa);
+      console.log(dataa)
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +41,7 @@ export default function App() {
   // Getting data from API
   useEffect(() => {
     getData();
-    getUsersData();
+    // getUsersData();
   }, []);
 
   const getPost = (id) => {
@@ -79,7 +80,7 @@ export default function App() {
       await apiService.login(username, password);
       // Fetch data again after logging in
       getData();
-      getUsersData();
+      //getUsersData();
       window.location.reload();
     } catch (error) {
       console.error("Login", error);
@@ -91,9 +92,7 @@ export default function App() {
       setErrorMessage("")
 
       var decoded = jwt_decode(localStorage.getItem("token"));
-      console.log(decoded)
 
-      // console.log(content, owner, authorName)
       const newPost = {
         //id: (Math.random() * 999).toString(),
         content: content,
@@ -102,7 +101,7 @@ export default function App() {
         likes: 0,
         comments: [],
         date: Date.now(),
-        submitter: decoded.id
+        submitter: decoded.user
       };
 
       console.log(newPost);
@@ -196,7 +195,7 @@ export default function App() {
     <>
       <p>No Posts!</p>
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment}></Post>
+        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser}></Post>
         <Posts path="/" data={posts} addPost={addPost} getUser={getUser}></Posts>
 
 
@@ -206,7 +205,7 @@ export default function App() {
   if (posts.length > 0) {
     contents = (
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment}></Post>
+        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser}></Post>
         <Posts path="/" data={posts} addPost={addPost} getUser={getUser} ></Posts>
 
 
