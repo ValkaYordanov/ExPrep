@@ -48,7 +48,7 @@ export function createUsersRouter(secret) {
         try {
             const pass = await hashPass(req.body.password);
             const user = await User.create({ username: req.body.username, password: pass });
-            const payload = { username: user.username };
+            const payload = { username: user.username, id: user.id };
             const token = jwt.sign(payload, secret, {
                 algorithm: "HS512",
                 expiresIn: "1h",
@@ -76,6 +76,12 @@ export function createUsersRouter(secret) {
     // /user/:id/posts
     // This route takes a username and a password and creates an auth token
     // POST /api/users/authenticate
+
+
+    router.get("/allUsers"), async (req, res) => {
+        const users = await User.find();
+        res.json(users);
+    }
     router.post("/authenticate", async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
@@ -93,7 +99,7 @@ export function createUsersRouter(secret) {
         if (user) {
             // If the user is found
             if (bcrypt.compareSync(password, user.password)) {
-                const payload = { username: username };
+                const payload = { username: username, id: user.id };
                 const token = jwt.sign(payload, secret, {
                     algorithm: "HS512",
                     expiresIn: "1h",

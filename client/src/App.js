@@ -15,12 +15,8 @@ import jwt_decode from "jwt-decode";
 const API_URL = process.env.REACT_APP_API;
 export default function App() {
   const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   fetch(`${API_URL}/allPosts`)
-  //     .then((response) => response.json())
-  //     .then((data) => setPosts(data));
-  // }, []);
 
   async function getData() {
     // We now use `apiService.get()` instead of `fetch()`
@@ -32,13 +28,27 @@ export default function App() {
       console.error(error);
     }
   }
+  async function getUsersData() {
+    try {
+      const data = await apiService.get("/users/allUsers");
+      setUsers(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
   // Getting data from API
   useEffect(() => {
     getData();
+    getUsersData();
   }, []);
 
   const getPost = (id) => {
     return posts.find((post) => post._id === id);
+  };
+
+  const getUser = (id) => {
+    return users.find((user) => user._id === id);
   };
 
   function logout() {
@@ -69,6 +79,7 @@ export default function App() {
       await apiService.login(username, password);
       // Fetch data again after logging in
       getData();
+      getUsersData();
       window.location.reload();
     } catch (error) {
       console.error("Login", error);
@@ -79,6 +90,9 @@ export default function App() {
     if (content !== "" && authorName !== "" && content.length <= 500) {
       setErrorMessage("")
 
+      var decoded = jwt_decode(localStorage.getItem("token"));
+      console.log(decoded)
+
       // console.log(content, owner, authorName)
       const newPost = {
         //id: (Math.random() * 999).toString(),
@@ -88,6 +102,7 @@ export default function App() {
         likes: 0,
         comments: [],
         date: Date.now(),
+        submitter: decoded.id
       };
 
       console.log(newPost);
@@ -177,12 +192,22 @@ export default function App() {
     }
   }
 
-  let contents = <p>No Posts!</p>;
+  let contents =
+    <>
+      <p>No Posts!</p>
+      <Router>
+        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment}></Post>
+        <Posts path="/" data={posts} addPost={addPost} getUser={getUser}></Posts>
+
+
+      </Router>
+    </>
+    ;
   if (posts.length > 0) {
     contents = (
       <Router>
         <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment}></Post>
-        <Posts path="/" data={posts} addPost={addPost} ></Posts>
+        <Posts path="/" data={posts} addPost={addPost} getUser={getUser} ></Posts>
 
 
       </Router>

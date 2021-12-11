@@ -12,15 +12,13 @@ class ApiService {
     }
 
     async createUser(username, password) {
-        console.log(username, password)
+
         const response = await this.post("/users/registration", {
             username,
             password,
         });
         // this.setToken(response.token);
         this.login(username, password);
-
-        console.log(response);
     }
 
     async login(username, password) {

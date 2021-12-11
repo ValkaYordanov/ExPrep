@@ -19,9 +19,14 @@ const postSchema = new mongoose.Schema({
     userName: { type: String, required: true, maxLength: 100 },
     content: { type: String, required: true, minLength: 2 }
   }],
-  date: Date
+  date: Date,
+  submitter: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Post = mongoose.model("Post", postSchema);
+
 
 export default Post;

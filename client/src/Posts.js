@@ -12,6 +12,12 @@ function Posts(props) {
         return content.substring(0, 25);
     }
 
+    function getUser(id) {
+        const user = props.getUser(id);
+        return user;
+    }
+
+
     console.log(data)
     return (
         <>
@@ -24,7 +30,7 @@ function Posts(props) {
                 {data.map(post =>
                     <><div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName}</Link>
+                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {getUser(post.submitter).username}</Link>
                         </div>
                         <hr />
                         <div>
