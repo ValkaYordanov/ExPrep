@@ -25,7 +25,9 @@ function Post(props) {
     if (!post) {
         return <p>Loading...</p>
     }
+    console.log(post);
     return (
+
         <div className="background-orange" >
 
             <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>

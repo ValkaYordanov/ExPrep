@@ -30,7 +30,7 @@ export default function App() {
   }
   async function getUsersData() {
     try {
-      const data = await apiService.get("/users/allUsers");
+      const data = await apiService.get("/allUsers");
       setUsers(data);
 
     } catch (error) {

@@ -86,9 +86,10 @@ postRoutes.put('/addComment/:id', async (req, res) => {
 
 postRoutes.get("/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate("submitter");;
     if (post) {
       res.json(post);
+
     } else {
       res.status(404);
       res.json({ error: "Post not found" });

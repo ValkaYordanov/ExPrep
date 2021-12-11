@@ -78,7 +78,7 @@ export function createUsersRouter(secret) {
     // POST /api/users/authenticate
 
 
-    router.get("/allUsers"), async (req, res) => {
+    router.get("/"), async (req, res) => {
         const users = await User.find();
         res.json(users);
     }

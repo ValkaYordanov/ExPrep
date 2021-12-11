@@ -30,7 +30,7 @@ function Posts(props) {
                 {data.map(post =>
                     <><div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {getUser(post.submitter).username}</Link>
+                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {post.submitter}</Link>
                         </div>
                         <hr />
                         <div>
