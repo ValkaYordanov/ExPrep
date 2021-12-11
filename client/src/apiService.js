@@ -1,6 +1,6 @@
 // TODO: Pull this variable from process.env.REACT_APP_API (via an .env file)
-const API_URL = "http://localhost:8080/api";
-
+//const API_URL = "http://localhost:8080/api";
+const API_URL = process.env.REACT_APP_API
 /**
  * Service class for interacting with an API, authenticating users against the
  * API, and storing JSON Web Tokens in the browser's localStorage.
