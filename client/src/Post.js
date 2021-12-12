@@ -24,11 +24,11 @@ function Post(props) {
 
     }
 
-    //console.log(post);
+    console.log(post);
     if (!post) {
         return <p>Loading...</p>
     }
-    console.log(post);
+    //console.log(post);
     return (
 
         <div className="background-orange" >
@@ -49,7 +49,7 @@ function Post(props) {
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{ }|
+                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{post.submitter.username}|
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >

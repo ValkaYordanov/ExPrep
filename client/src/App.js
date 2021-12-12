@@ -22,7 +22,7 @@ export default function App() {
     // We now use `apiService.get()` instead of `fetch()`
     try {
       const data = await apiService.get("/allPosts");
-
+      console.log(data)
       setPosts(data);
       getUsersData();
     } catch (error) {
@@ -107,7 +107,7 @@ export default function App() {
         likes: 0,
         comments: [],
         date: Date.now(),
-        submitter: decoded.user
+        submitter: decoded.user._id
       };
 
       console.log(newPost);
@@ -125,6 +125,7 @@ export default function App() {
       //     .then((response) => response.json())
       //     .then((data) => setPosts(data));
       setPosts([...posts, resPost]);
+      window.location.reload();
     }
     else {
       setErrorMessage("The content and the Author Name are required! The content needs to be less than 500 characters!")
@@ -134,7 +135,7 @@ export default function App() {
   async function addLike(postId) {
     const post = posts.find((post) => post._id === postId);
     var index = posts.findIndex((post) => post._id === postId);
-    // console.log({ ...post, likes: post.likes + 1 });
+    console.log(post);
     const updatedPost = await apiService.put(`/allPosts/addLike/${postId}`,
 
       { ...post, likes: post.likes + 1 },
@@ -235,7 +236,8 @@ export default function App() {
   let regPart = <Registration createUser={createUser}></Registration>;
   if (apiService.loggedIn()) {
     var decoded = jwt_decode(localStorage.getItem("token"));
-    regPart = <p>Welcome, {decoded.username}</p>
+
+    regPart = <p>Welcome, {decoded.user.username}</p>
   }
 
   let loginPart = <Login login={login}></Login>;

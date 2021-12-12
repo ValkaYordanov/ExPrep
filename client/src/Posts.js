@@ -30,7 +30,7 @@ function Posts(props) {
 
                     <div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | { }</Link>
+                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {post.submitter.username}</Link>
                         </div>
                         <hr />
                         <div>

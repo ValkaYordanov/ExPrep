@@ -82,7 +82,7 @@ class ApiService {
                 throw parsedResponse;
             }
         } catch (error) {
-            throw "here";
+            throw "Yo need to log in!";
         }
     }
 
