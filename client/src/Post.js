@@ -49,7 +49,7 @@ function Post(props) {
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{post.submitter.username}|
+                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{ }|
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
