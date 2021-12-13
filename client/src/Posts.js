@@ -12,19 +12,25 @@ function Posts(props) {
         return content.substring(0, 25);
     }
 
-    console.log(data)
+    function getUser(id) {
+        const user = props.getUser(id);
+        return user;
+    }
+
     return (
+
+
         <>
             <br />
             <AddPost addPost={addPost} />
             <h1 style={{ textAlign: 'center' }}>List of all posts</h1>
             <div style={{ width: '300px', border: 'solid', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
 
+                {data.map(post => <>
 
-                {data.map(post =>
-                    <><div>
+                    <div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName}</Link>
+                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {post.submitter.username}</Link>
                         </div>
                         <hr />
                         <div>
@@ -36,7 +42,7 @@ function Posts(props) {
                         </div>
                         <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     </div>
-                    </>
+                </>
 
 
 

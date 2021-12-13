@@ -2,17 +2,20 @@ import React from "react";
 import { Link } from "@reach/router";
 import { useState } from "react";
 import "./styles.css";
-
 // Nothing special happens in this component, except for the Link
 function Post(props) {
 
 
     const post = props.getPost(props.id); // "props.id" contains the id in "/recipe/:id"
+
     const { addLike } = props;
+    const { deletePost } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
     const [user, setUser] = useState("");
-
+    // const userr = props.getUser(post.submitter);
+    // console.log(post.sumbitter);
+    // console.log(post.submitter);
     const [errorMessage, setErrorMessage] = useState("");
 
     function clearInput() {
@@ -21,11 +24,13 @@ function Post(props) {
 
     }
 
-    //console.log(post);
+    console.log(post);
     if (!post) {
         return <p>Loading...</p>
     }
+    //console.log(post);
     return (
+
         <div className="background-orange" >
 
             <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>
@@ -36,6 +41,7 @@ function Post(props) {
                         day: '2-digit',
                         year: 'numeric',
                     }).format(new Date(post.date))}
+                    <Link to="/"><button type="button" onClick={(event) => { deletePost(post._id); }}>Delete</button></Link>
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
@@ -43,7 +49,7 @@ function Post(props) {
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner}
+                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{post.submitter.username}|
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >

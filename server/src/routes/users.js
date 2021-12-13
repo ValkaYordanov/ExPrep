@@ -44,11 +44,17 @@ async function hashPass(rawPass) {
 export function createUsersRouter(secret) {
     const router = express.Router();
 
+
+    router.get("/users", async (req, res) => {
+        const users = await User.find();
+        res.json(users);
+    });
+
     router.post("/registration", async (req, res) => {
         try {
             const pass = await hashPass(req.body.password);
             const user = await User.create({ username: req.body.username, password: pass });
-            const payload = { username: user.username };
+            const payload = { user };
             const token = jwt.sign(payload, secret, {
                 algorithm: "HS512",
                 expiresIn: "1h",
@@ -68,14 +74,17 @@ export function createUsersRouter(secret) {
 
     });
 
-    router.patch("/", (req, res) => {
-        // TODO: Implement user update (change password, etc).
-        res.status(501).json({ msg: "update user not implemented" });
-    });
+    // router.patch("/", (req, res) => {
+    //     // TODO: Implement user update (change password, etc).
+    //     res.status(501).json({ msg: "update user not implemented" });
+    // });
     /// /post?userId=id
     // /user/:id/posts
     // This route takes a username and a password and creates an auth token
     // POST /api/users/authenticate
+
+
+
     router.post("/authenticate", async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
@@ -93,7 +102,7 @@ export function createUsersRouter(secret) {
         if (user) {
             // If the user is found
             if (bcrypt.compareSync(password, user.password)) {
-                const payload = { username: username };
+                const payload = { user };
                 const token = jwt.sign(payload, secret, {
                     algorithm: "HS512",
                     expiresIn: "1h",

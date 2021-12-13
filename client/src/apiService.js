@@ -1,6 +1,6 @@
 // TODO: Pull this variable from process.env.REACT_APP_API (via an .env file)
-//const API_URL = "http://localhost:8080/api";
-const API_URL = process.env.REACT_APP_API
+const API_URL = process.env.REACT_APP_API;
+
 /**
  * Service class for interacting with an API, authenticating users against the
  * API, and storing JSON Web Tokens in the browser's localStorage.
@@ -12,15 +12,18 @@ class ApiService {
     }
 
     async createUser(username, password) {
-        console.log(username, password)
+
         const response = await this.post("/users/registration", {
             username,
             password,
         });
-        // this.setToken(response.token);
+        this.setToken(response.token);
         this.login(username, password);
+    }
 
-        console.log(response);
+    async getUsers() {
+        const response = await this.get("/users/users");
+        return response
     }
 
     async login(username, password) {
@@ -79,7 +82,7 @@ class ApiService {
                 throw parsedResponse;
             }
         } catch (error) {
-            throw error;
+            throw "Yo need to log in!";
         }
     }
 
